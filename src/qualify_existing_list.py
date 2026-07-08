@@ -1,4 +1,4 @@
-"""Entry Point A: qualify a list of companies the client already has.
+"""Qualify a List: check a list of companies the client already has.
 
 Use this when the client already has a firmographically-qualified candidate
 list (from their own database, a CRM export, or any other source) and wants
@@ -8,7 +8,7 @@ answer on its own.
 Phases run: 1 (optional) -> 3 -> 4 (as needed) -> 5. Discovery (phase 2) is
 skipped entirely - the input list is the candidate pool.
 See docs/04-implementation.md for the full phase-by-phase reference, and
-docs/03-entry-points.md for how this differs from Entry Point B
+docs/03-choosing-a-workflow.md for how this differs from Build a List
 (build_and_qualify_list.py).
 
 Usage:

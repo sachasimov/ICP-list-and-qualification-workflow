@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Existing company list input (Entry Point A)",
+  "title": "Existing company list input (Qualify a List)",
   "description": "Input format for qualify_existing_list.py. Each item can be a plain company name, or an object with more detail. Mixing both forms in the same array is allowed.",
   "type": "array",
   "items": {

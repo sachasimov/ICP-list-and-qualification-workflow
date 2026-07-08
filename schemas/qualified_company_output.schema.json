@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Qualified company list output",
-  "description": "Output format produced by phase 5 for both entry points. This is the final deliverable handed to a CRM, spreadsheet, or outbound workflow.",
+  "description": "Output format produced by the final step of either workflow (Qualify a List or Build a List). This is the final deliverable handed to a CRM, spreadsheet, or outbound workflow.",
   "type": "object",
   "properties": {
     "companies": {

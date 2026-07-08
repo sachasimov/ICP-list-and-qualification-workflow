@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Workflow configuration",
-  "description": "Configuration required to run either entry point of the qualitative ICP qualification workflow.",
+  "description": "Configuration required to run either workflow (Qualify a List or Build a List) of the qualitative ICP qualification pattern.",
   "type": "object",
   "properties": {
     "client_name": {
@@ -11,7 +11,7 @@
     "client_website": {
       "type": "string",
       "format": "uri",
-      "description": "Required only if deriving the qualitative criterion from the client's own case studies (entry point A or B with --derive-criterion)."
+      "description": "Required only if deriving the qualitative criterion from the client's own case studies (either workflow, run with --derive-criterion)."
     },
     "natural_language_icp": {
       "type": "string",
@@ -23,15 +23,15 @@
     },
     "industry": {
       "type": "string",
-      "description": "Used only by entry point B (discovery). Not required for entry point A."
+      "description": "Used only by Build a List (discovery). Not required for Qualify a List."
     },
     "geography": {
       "type": "string",
-      "description": "Used only by entry point B (discovery). Not required for entry point A."
+      "description": "Used only by Build a List (discovery). Not required for Qualify a List."
     },
     "reference_competitor": {
       "type": "string",
-      "description": "Used only by entry point B (discovery), for the 'alternatives to X' search facet. Not required for entry point A."
+      "description": "Used only by Build a List (discovery), for the 'alternatives to X' search facet. Not required for Qualify a List."
     },
     "firmographic_band": {
       "type": "string",

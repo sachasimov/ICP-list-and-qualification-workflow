@@ -1,4 +1,4 @@
-"""Entry Point B: build a candidate list with Linkup, then qualify it.
+"""Build a List: discover candidates with Linkup, then qualify them.
 
 Use this when the client does not already have a candidate list and wants
 Linkup to both discover companies and validate them against a qualitative
@@ -6,7 +6,7 @@ criterion.
 
 Phases run: 1 (optional) -> 2 -> 3 -> 4 (as needed) -> 5.
 See docs/04-implementation.md for the full phase-by-phase reference, and
-docs/03-entry-points.md for how this differs from Entry Point A
+docs/03-choosing-a-workflow.md for how this differs from Qualify a List
 (qualify_existing_list.py).
 
 Usage:

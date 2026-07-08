@@ -11,13 +11,13 @@ integration code before step 3.
 1. Read [`docs/01-overview.md`](docs/01-overview.md) — the problem this solves and its inputs/outputs.
 2. Read [`docs/02-endpoints.md`](docs/02-endpoints.md) — the Linkup endpoints involved and why each is
    used where it is.
-3. Read [`docs/03-entry-points.md`](docs/03-entry-points.md) and pick one:
-   - **Entry Point A** (`src/qualify_existing_list.py`) if the client already has a candidate company
+3. Read [`docs/03-choosing-a-workflow.md`](docs/03-choosing-a-workflow.md) and pick one:
+   - **Qualify a List** (`src/qualify_existing_list.py`) if the client already has a candidate company
      list.
-   - **Entry Point B** (`src/build_and_qualify_list.py`) if the list needs to be discovered from
+   - **Build a List** (`src/build_and_qualify_list.py`) if the list needs to be discovered from
      scratch.
 4. Read [`docs/04-implementation.md`](docs/04-implementation.md) in full for every phase your chosen
-   entry point uses — it has the exact request and response JSON for every Linkup call, not just a
+   workflow uses — it has the exact request and response JSON for every Linkup call, not just a
    description of what it does.
 5. Read [`docs/05-pitfalls.md`](docs/05-pitfalls.md) before writing the validation and finalization
    logic. These are not optional flavor text — skipping them produces a list with real, silent errors:
@@ -29,7 +29,8 @@ integration code before step 3.
 - Follow the schemas in [`schemas/`](schemas/) for every input and output. They are the contract,
   independent of language — validate against them, don't just eyeball the shape.
 - [`src/`](src/) is a working Python reference implementation, one file per phase
-  (`phase1_derive_icp.py` … `phase5_finalize.py`), plus the two entry-point scripts that chain them.
+  (`phase1_derive_icp.py` … `phase5_finalize.py`), plus the two top-level scripts
+  (`qualify_existing_list.py`, `build_and_qualify_list.py`) that chain them into the two workflows.
   If implementing in another language or framework, port the phase functions one to one — same request
   shapes, same schemas, same phase order — rather than redesigning the flow from the doc prose alone.
 - Do not skip phase 4 (background verification) for anything phase 3 marks `unclear`. Do not skip it
@@ -47,12 +48,12 @@ integration code before step 3.
 
 | Task | Where to look |
 |---|---|
-| Wire this into an existing app or CRM | `docs/03-entry-points.md` for which entry point to call; `schemas/qualified_company_output.schema.json` for the response shape to expect back |
+| Wire this into an existing app or CRM | `docs/03-choosing-a-workflow.md` for which script to call; `schemas/qualified_company_output.schema.json` for the response shape to expect back |
 | Change which Linkup endpoint or depth a phase uses | `docs/02-endpoints.md` for the reasoning, then the matching phase section in `docs/04-implementation.md` for the exact request |
 | Configure this for a new client or a new qualitative criterion | No code changes — edit `config.json`'s `qualitative_criterion` and `natural_language_icp` per `schemas/config.schema.json` |
 | Debug an obviously wrong company in the output | `docs/05-pitfalls.md` — most likely an entity-name collision or a missed firmographic cross-check, both covered there with concrete examples |
 | Re-implement in TypeScript or another stack | Port `src/phase1_derive_icp.py` through `src/phase5_finalize.py` one to one, keeping the request shapes from `docs/04-implementation.md` and the schemas in `schemas/` unchanged |
-| Decide how often to re-run this | Entry Point A is cheap enough to re-run on a schedule against the same list to catch new evidence; Entry Point B's discovery phase is the expensive part and is better run on demand |
+| Decide how often to re-run this | Qualify a List is cheap enough to re-run on a schedule against the same list to catch new evidence; Build a List's discovery step is the expensive part and is better run on demand |
 
 ## Operational constraints
 

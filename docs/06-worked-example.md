@@ -4,8 +4,8 @@ This walks through the workflow for a representative case: a B2B spend-managemen
 to European mid-market companies, where the qualitative criterion is structural rather than a matter of
 opinion.
 
-The main walkthrough below follows **Entry Point B** (`build_and_qualify_list.py`), since it exercises
-every phase, including discovery. See [the Entry Point A variant](#entry-point-a-variant-starting-from-an-existing-list)
+The main walkthrough below follows **Build a List** (`build_and_qualify_list.py`), since it exercises
+every phase, including discovery. See [the Qualify a List variant](#qualify-a-list-variant-starting-from-an-existing-list)
 at the end for how this changes when a candidate list already exists.
 
 ## Setup
@@ -89,14 +89,14 @@ some categories (well-documented, well-funded sectors) will validate at a higher
 (private, low-visibility sectors). The shape of the funnel — wide discovery, full validation, and a
 smaller but trustworthy final list — is the consistent part.
 
-## Entry Point A variant: starting from an existing list
+## Qualify a List variant: starting from an existing list
 
 Suppose the client's CRM already exports 200 companies that passed a firmographic filter (50–1,000
 employees, headquartered in Europe), and the ask is simply: "which of these actually operate across
 multiple entities?"
 
-This is `qualify_existing_list.py`, not `build_and_qualify_list.py`. The difference from the walkthrough
-above:
+This is `qualify_existing_list.py` (Qualify a List), not `build_and_qualify_list.py` (Build a List). The
+difference from the walkthrough above:
 
 - **Phase 1** still runs if the criterion needs deriving, exactly as before.
 - **Phase 2 does not run at all.** The 200 companies from the CRM export are the candidate pool — no
@@ -105,6 +105,6 @@ above:
   groups of ~15), the same unclear cases go to phase 4 background verification, and phase 5 applies the
   same firmographic and entity-identity cross-checks before producing the final list.
 
-The practical effect: Entry Point A is faster and cheaper per run (no 5–10 minute discovery call), and
+The practical effect: Qualify a List is faster and cheaper per run (no 5–10 minute discovery call), and
 it is the natural choice for a recurring job — re-validating the same CRM list weekly to catch new
 evidence, without re-discovering candidates that were already ruled in or out.

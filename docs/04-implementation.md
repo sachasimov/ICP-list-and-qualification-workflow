@@ -2,9 +2,9 @@
 
 Each phase below includes the request shape, the reasoning behind it, and the response shape to expect.
 A full reference implementation of every phase is in [`../src`](../src). See
-[`03-entry-points.md`](03-entry-points.md) first if you have not already — it explains which phases
-each entry point actually runs. Phase 2 (discovery) belongs to Entry Point B only; phases 1, 3, 4, and 5
-are shared by both entry points.
+[`03-choosing-a-workflow.md`](03-choosing-a-workflow.md) first if you have not already — it explains
+which phases each workflow actually runs. Phase 2 (discovery) belongs to **Build a List** only; phases
+1, 3, 4, and 5 are shared by both **Qualify a List** and **Build a List**.
 
 ## Phase 1 — Derive the ICP (optional)
 
@@ -47,10 +47,10 @@ is not already captured by a firmographic field — that pattern is the qualitat
 onward. State it as a concrete sentence before moving on (e.g. "operates across multiple legal entities
 and is likely still managing spend manually across them"), not as a vague theme.
 
-## Phase 2 — Discover a wide candidate pool (Entry Point B only)
+## Phase 2 — Discover a wide candidate pool (Build a List only)
 
-Skip this phase entirely for Entry Point A — the client's existing list is the candidate pool, and goes
-straight to phase 3.
+Skip this phase entirely for Qualify a List — the client's existing list is the candidate pool, and
+goes straight to phase 3.
 
 Run both calls below and pool their output before moving to phase 3. They are complementary, not
 alternatives: the research call is the primary source of volume, the search call fills in anything the
