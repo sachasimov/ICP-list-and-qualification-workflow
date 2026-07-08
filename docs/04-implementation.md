@@ -1,7 +1,10 @@
 # Implementation Guide
 
 Each phase below includes the request shape, the reasoning behind it, and the response shape to expect.
-A full reference implementation of every phase is in [`../src`](../src).
+A full reference implementation of every phase is in [`../src`](../src). See
+[`03-entry-points.md`](03-entry-points.md) first if you have not already — it explains which phases
+each entry point actually runs. Phase 2 (discovery) belongs to Entry Point B only; phases 1, 3, 4, and 5
+are shared by both entry points.
 
 ## Phase 1 — Derive the ICP (optional)
 
@@ -44,7 +47,10 @@ is not already captured by a firmographic field — that pattern is the qualitat
 onward. State it as a concrete sentence before moving on (e.g. "operates across multiple legal entities
 and is likely still managing spend manually across them"), not as a vague theme.
 
-## Phase 2 — Discover a wide candidate pool
+## Phase 2 — Discover a wide candidate pool (Entry Point B only)
+
+Skip this phase entirely for Entry Point A — the client's existing list is the candidate pool, and goes
+straight to phase 3.
 
 Run both calls below and pool their output before moving to phase 3. They are complementary, not
 alternatives: the research call is the primary source of volume, the search call fills in anything the
@@ -99,7 +105,7 @@ the role will manage is first-party evidence of its own structure.
 
 If this single call underperforms on one particular facet (for example, funding news gets crowded out
 by "best of" list content), split that facet into its own follow-up call rather than assuming the
-signal does not exist — see `04-pitfalls.md`.
+signal does not exist — see `05-pitfalls.md`.
 
 Community sources (forums, Reddit) are strongest for opinion-based criteria where people describe their
 own setup or a tool they dislike, but posters are usually anonymous. Treat a community thread as
@@ -148,13 +154,13 @@ each company only shallow attention. 10–15 per call is a reasonable middle gro
 **Before trusting a "confirmed" result:** cross-check the evidence's industry, country, and rough size
 against the context that first surfaced the company in phase 2 (its source URL, the facet it came
 from). A generic company name matching an unrelated business with the same name is a real risk at scale
-— see `04-pitfalls.md` for a concrete example of how this shows up.
+— see `05-pitfalls.md` for a concrete example of how this shows up.
 
 ## Phase 4 — Background verification for unclear cases
 
 Only companies marked `unclear` in phase 3 go through this phase — not the full pool, and not companies
 already marked `confirmed` or `not_found` (unless a confirmed result's entity identity looks ambiguous;
-see `04-pitfalls.md`).
+see `05-pitfalls.md`).
 
 Submit all background verification jobs in parallel, then poll them together, rather than running them
 one at a time.

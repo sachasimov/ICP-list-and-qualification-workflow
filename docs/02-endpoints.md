@@ -13,7 +13,7 @@ candidate's own site.
 
 | Parameter | Purpose |
 |---|---|
-| `q` | The retrieval instruction. See `03-implementation.md` for exact wording per phase. |
+| `q` | The retrieval instruction. See `04-implementation.md` for exact wording per phase. |
 | `depth` | `standard` for a known URL plus independent parallel searches; `deep` when the exact page must be found before it can be read (e.g. "find the pricing page, then scrape it"). |
 | `outputType` | `searchResults` for a raw list another step will process; `structured` for fields a program will consume directly (requires `structuredOutputSchema`). |
 | `structuredOutputSchema` | A JSON Schema describing the fields to extract. Keep required fields minimal — see the note on schema strictness below. |

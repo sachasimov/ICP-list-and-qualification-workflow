@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Workflow configuration",
+  "description": "Configuration required to run either entry point of the qualitative ICP qualification workflow.",
+  "type": "object",
+  "properties": {
+    "client_name": {
+      "type": "string",
+      "description": "The name of the company running this workflow (used in prompts and, if phase 1 runs, to find its own case studies)."
+    },
+    "client_website": {
+      "type": "string",
+      "format": "uri",
+      "description": "Required only if deriving the qualitative criterion from the client's own case studies (entry point A or B with --derive-criterion)."
+    },
+    "natural_language_icp": {
+      "type": "string",
+      "description": "The full ICP in plain language, including firmographic and qualitative parts."
+    },
+    "qualitative_criterion": {
+      "type": "string",
+      "description": "The specific, checkable qualitative trait that a firmographic schema cannot answer. Must be a concrete statement, not a vague theme. Example: 'operates across multiple legal entities, subsidiaries, or country offices, and is likely still managing spend manually or with fragmented tools per entity'. Example of what NOT to write: 'flexible operations'."
+    },
+    "industry": {
+      "type": "string",
+      "description": "Used only by entry point B (discovery). Not required for entry point A."
+    },
+    "geography": {
+      "type": "string",
+      "description": "Used only by entry point B (discovery). Not required for entry point A."
+    },
+    "reference_competitor": {
+      "type": "string",
+      "description": "Used only by entry point B (discovery), for the 'alternatives to X' search facet. Not required for entry point A."
+    },
+    "firmographic_band": {
+      "type": "string",
+      "description": "The target firmographic range used to cross-check candidates in the final phase, independent of the qualitative criterion. Example: '50-1000 employees, headquartered in Europe'."
+    },
+    "tier_definition": {
+      "type": "string",
+      "description": "How to assign a tier to each validated company. Must state what separates a strong match from a partial one, and confirm that not_found and firmographically-disqualified companies are excluded, not tiered."
+    },
+    "validation_batch_size": {
+      "type": "integer",
+      "default": 12,
+      "minimum": 1,
+      "maximum": 20,
+      "description": "How many companies to validate per deep-search call in phase 3. 10-15 is the recommended range; see docs/05-pitfalls.md."
+    }
+  },
+  "required": ["client_name", "qualitative_criterion", "firmographic_band", "tier_definition"],
+  "allOf": [
+    {
+      "if": {
+        "not": { "required": ["natural_language_icp"] }
+      },
+      "then": {
+        "required": ["client_website"],
+        "description": "If natural_language_icp is not provided, client_website is required so phase 1 can derive the criterion."
+      }
+    }
+  ]
+}

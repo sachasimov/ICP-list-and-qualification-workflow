@@ -2,7 +2,9 @@ __pycache__/
 *.pyc
 .env
 src/config.json
+src/companies.json
 src/final_list.json
+src/qualified_list.json
 src/candidates.json
 src/unclear.json
 src/criterion_results.json

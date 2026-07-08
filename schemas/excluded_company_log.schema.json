@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Excluded company audit log",
+  "description": "Internal record of every candidate dropped before the final list, and why. Not shown to end users as recommendations, but kept for auditability and for tuning the workflow.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "company_name": { "type": "string" },
+      "reason": {
+        "type": "string",
+        "enum": ["not_found", "entity_mismatch", "firmographic_mismatch"],
+        "description": "not_found: no real company matched the name. entity_mismatch: evidence describes a different company with the same or a similar name. firmographic_mismatch: criterion confirmed but the company is outside the target firmographic band (see docs/05-pitfalls.md)."
+      },
+      "detail": {
+        "type": "string",
+        "description": "The specific evidence or reasoning behind the exclusion."
+      }
+    },
+    "required": ["company_name", "reason"]
+  }
+}

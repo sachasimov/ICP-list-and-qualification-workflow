@@ -16,6 +16,7 @@ FINAL_LIST_SCHEMA = {
     "properties": {
         "companies": {
             "type": "array",
+            "description": "Only confirmed companies, plus unclear ones still pending background verification. Matches schemas/qualified_company_output.schema.json.",
             "items": {
                 "type": "object",
                 "properties": {
@@ -30,9 +31,22 @@ FINAL_LIST_SCHEMA = {
                 },
                 "required": ["company_name", "website", "criterion_status", "tier", "source_urls"],
             },
-        }
+        },
+        "excluded": {
+            "type": "array",
+            "description": "Every dropped candidate and why. Matches schemas/excluded_company_log.schema.json. Not shown to end users as recommendations.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "company_name": {"type": "string"},
+                    "reason": {"type": "string", "enum": ["not_found", "entity_mismatch", "firmographic_mismatch"]},
+                    "detail": {"type": "string"},
+                },
+                "required": ["company_name", "reason"],
+            },
+        },
     },
-    "required": ["companies"],
+    "required": ["companies", "excluded"],
 }
 
 
@@ -42,16 +56,17 @@ def build_final_list(firmographic_band: str, tier_definition: str,
     q = (
         f"Using this target firmographic band: {firmographic_band}, these on-site criterion checks: "
         f"{json.dumps(criterion_check_results)}, and this completed background verification: "
-        f"{json.dumps(background_verification_results)}, assign each company a tier using this "
-        f"definition: {tier_definition}. Exclude any company whose criterion_status is not_found. "
-        f"Also exclude any company confirmed for the criterion but clearly outside the firmographic "
-        f"band (for example, far larger than the stated employee range, or a national subsidiary of "
-        f"a much larger multinational rather than an independent buyer) - note the exclusion reason "
-        f"instead of including it. Watch for name collisions: if a company's evidence describes a "
-        f"different industry, country, or business than expected for that name, treat it as a "
-        f"mismatch and exclude it rather than including it as confirmed. Return company name, "
-        f"website, firmographic fit, criterion status, evidence, source URLs, tier, and whether "
-        f"background verification is still pending."
+        f"{json.dumps(background_verification_results)}, assign each surviving company a tier using "
+        f"this definition: {tier_definition}. Build two separate lists. First, 'companies': every "
+        f"company whose criterion_status is confirmed, or unclear pending background verification, "
+        f"and that fits the firmographic band - for each, return company name, website, firmographic "
+        f"fit, criterion status, evidence, source URLs, tier, and whether background verification is "
+        f"still pending. Second, 'excluded': every company left out, with a reason of not_found "
+        f"(no real company matched the name), entity_mismatch (the evidence describes a different "
+        f"company with the same or a similar name - check for industry, country, or business type "
+        f"inconsistent with the original discovery context), or firmographic_mismatch (the criterion "
+        f"was confirmed but the company is far outside the firmographic band, or is a subsidiary of a "
+        f"much larger multinational rather than an independent buyer)."
     )
     return linkup_client.search(q, depth="standard", output_type="structured",
                                  structured_output_schema=FINAL_LIST_SCHEMA)
