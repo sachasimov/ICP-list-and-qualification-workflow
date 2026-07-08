@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.env
+src/config.json
+src/final_list.json
+src/candidates.json
+src/unclear.json
+src/criterion_results.json
+src/background_results.json

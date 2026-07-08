@@ -1,0 +1,12 @@
+{
+  "client_name": "Your Client's Company Name",
+  "client_website": "https://example.com",
+  "natural_language_icp": "European companies with roughly 50-1000 employees that operate across multiple legal entities, subsidiaries, or country offices",
+  "qualitative_criterion": "operates across multiple legal entities, subsidiaries, or country offices, and is likely still managing spend manually or with fragmented tools per entity",
+  "industry": "B2B software",
+  "geography": "France, UK, Germany, Spain, or the Nordics",
+  "reference_competitor": "a well-known competitor or adjacent tool",
+  "firmographic_band": "50-1000 employees",
+  "tier_definition": "Tier 1 = confirmed criterion and within the firmographic band. Tier 2 = confirmed criterion but a borderline firmographic fit. Exclude anything not_found or firmographically disqualified.",
+  "validation_batch_size": 12
+}
